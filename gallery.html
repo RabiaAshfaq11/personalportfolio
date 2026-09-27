@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Rabia | Image Gallery</title><link rel="stylesheet" href="css/style.css"></head>
+<body><nav class="floating-nav" aria-label="Main navigation">
+  <a href="home.html"><strong>Rabia</strong></a>
+  <div class="nav-links">
+    <a href="home.html">Home</a><a href="hobbies.html">Hobbies</a><a href="skills.html">Skills</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+  </div>
+  <button class="menu" type="button" aria-label="Menu" onclick="location.href='contact.html'">↗</button>
+</nav>
+<main class="page-main container">
+  <p class="eyebrow reveal">A collection of moments</p>
+  <h1 class="page-title">Image<br>Gallery</h1>
+  <section class="gallery-full">
+    <div class="gallery-card"><img src="images/photo1.jpeg" alt="Gallery image 1"></div>
+    <div class="gallery-card"><img src="images/photo2.jpeg" alt="Gallery image 2"></div>
+    <div class="gallery-card"><img src="images/photo3.jpeg" alt="Gallery image 3"></div>
+    <div class="gallery-card"><img src="images/photo4.jpeg" alt="Gallery image 4"></div>
+    <div class="gallery-card"><img src="images/photo5.jpeg" alt="Gallery image 5"></div>
+  </section>
+</main>
+<footer class="container">Rabia Ashfaq · <a href="mailto:rabia.ashfaq77@gmail.com">rabia.ashfaq77@gmail.com</a></footer>
+
+<script>
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .gallery-card').forEach(el => revealObserver.observe(el));
+
+const copy = document.querySelector('#scroll-copy');
+const words = document.querySelectorAll('.reveal-word');
+function updateTextReveal() {
+  if (!copy || !words.length) return;
+  const rect = copy.getBoundingClientRect();
+  const start = innerHeight * .78;
+  const end = innerHeight * .35;
+  const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
+  words.forEach((word, index) => {
+    const amount = progress * words.length - index;
+    word.classList.toggle('active', amount >= .7);
+  });
+}
+addEventListener('scroll', updateTextReveal, { passive: true });
+addEventListener('resize', updateTextReveal);
+updateTextReveal();
+</script>
+</body></html>

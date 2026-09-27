@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Rabia | Skills</title><link rel="stylesheet" href="css/style.css"></head>
+<body><nav class="floating-nav" aria-label="Main navigation">
+  <a href="home.html"><strong>Rabia</strong></a>
+  <div class="nav-links">
+    <a href="home.html">Home</a><a href="hobbies.html">Hobbies</a><a href="skills.html">Skills</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+  </div>
+  <button class="menu" type="button" aria-label="Menu" onclick="location.href='contact.html'">↗</button>
+</nav>
+<main class="page-main container">
+  <p class="eyebrow reveal">Tools, interests & capabilities</p>
+  <h1 class="page-title">My<br>Skills</h1>
+  <p class="lead reveal">A mix of technical, creative, and organizational skills I’m developing through coursework and projects.</p>
+  <section class="content-section">
+    <div class="skill-list">
+      <div class="skill-row reveal"><div>Data Analytics</div><span>Python · Pandas · Data Visualization · Research</span></div>
+      <div class="skill-row reveal"><div>Machine Learning</div><span>Python · ML Fundamentals · Model Evaluation</span></div>
+      <div class="skill-row reveal"><div>UI/UX & Product Design</div><span>Figma · Wireframes · Prototyping · Design Thinking</span></div>
+      <div class="skill-row reveal"><div>Project Management</div><span>Planning · Documentation · Collaboration · Delivery</span></div>
+      <div class="skill-row reveal"><div>Web Development</div><span>HTML · CSS · JavaScript · React</span></div>
+      <div class="skill-row reveal"><div>Creative Tools</div><span>Illustrator · Photoshop · Canva · Framer</span></div>
+    </div>
+  </section>
+  <a class="button" href="contact.html">Let's Connect ↗</a>
+</main>
+<footer class="container">Rabia Ashfaq · <a href="mailto:rabia.ashfaq77@gmail.com">rabia.ashfaq77@gmail.com</a></footer>
+
+<script>
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .gallery-card').forEach(el => revealObserver.observe(el));
+
+const copy = document.querySelector('#scroll-copy');
+const words = document.querySelectorAll('.reveal-word');
+function updateTextReveal() {
+  if (!copy || !words.length) return;
+  const rect = copy.getBoundingClientRect();
+  const start = innerHeight * .78;
+  const end = innerHeight * .35;
+  const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
+  words.forEach((word, index) => {
+    const amount = progress * words.length - index;
+    word.classList.toggle('active', amount >= .7);
+  });
+}
+addEventListener('scroll', updateTextReveal, { passive: true });
+addEventListener('resize', updateTextReveal);
+updateTextReveal();
+</script>
+</body></html>

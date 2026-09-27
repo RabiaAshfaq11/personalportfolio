@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Rabia | Hobbies</title><link rel="stylesheet" href="css/style.css"></head>
+<body><nav class="floating-nav" aria-label="Main navigation">
+  <a href="home.html"><strong>Rabia</strong></a>
+  <div class="nav-links">
+    <a href="home.html">Home</a><a href="hobbies.html">Hobbies</a><a href="skills.html">Skills</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+  </div>
+  <button class="menu" type="button" aria-label="Menu" onclick="location.href='contact.html'">↗</button>
+</nav>
+<main class="page-main container">
+  <p class="eyebrow reveal">Outside the screen</p>
+  <h1 class="page-title">Things I<br>Enjoy</h1>
+  <p class="lead reveal">A few interests that keep me curious, creative, and always learning.</p>
+  <section class="content-section">
+    <div class="hobby-list">
+      <div class="reveal"><strong>Painting</strong><span>Exploring color, texture, and different styles through traditional and digital art.</span></div>
+      <div class="reveal"><strong>Reading Books</strong><span>Finding new perspectives through stories, ideas, and non-fiction.</span></div>
+      <div class="reveal"><strong>Language Learning</strong><span>Discovering how language connects people and cultures.</span></div>
+      <div class="reveal"><strong>Mathematics</strong><span>Enjoying logic, patterns, and the process of solving problems.</span></div>
+      <div class="reveal"><strong>Sports</strong><span>Staying active, building discipline, and enjoying friendly competition.</span></div>
+    </div>
+  </section>
+  <a class="button" href="gallery.html">Explore the Gallery ↗</a>
+</main>
+<footer class="container">Rabia Ashfaq · <a href="mailto:rabia.ashfaq77@gmail.com">rabia.ashfaq77@gmail.com</a></footer>
+
+<script>
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .gallery-card').forEach(el => revealObserver.observe(el));
+
+const copy = document.querySelector('#scroll-copy');
+const words = document.querySelectorAll('.reveal-word');
+function updateTextReveal() {
+  if (!copy || !words.length) return;
+  const rect = copy.getBoundingClientRect();
+  const start = innerHeight * .78;
+  const end = innerHeight * .35;
+  const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
+  words.forEach((word, index) => {
+    const amount = progress * words.length - index;
+    word.classList.toggle('active', amount >= .7);
+  });
+}
+addEventListener('scroll', updateTextReveal, { passive: true });
+addEventListener('resize', updateTextReveal);
+updateTextReveal();
+</script>
+</body></html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Rabia | Contact</title><link rel="stylesheet" href="css/style.css"></head>
+<body><nav class="floating-nav" aria-label="Main navigation">
+  <a href="home.html"><strong>Rabia</strong></a>
+  <div class="nav-links">
+    <a href="home.html">Home</a><a href="hobbies.html">Hobbies</a><a href="skills.html">Skills</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+  </div>
+  <button class="menu" type="button" aria-label="Menu" onclick="location.href='contact.html'">↗</button>
+</nav>
+<main class="page-main container">
+  <p class="eyebrow reveal">Have a project or just want to say hello?</p>
+  <h1 class="page-title">Let's<br>Connect.</h1>
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="lead">I'm always open to conversations, creative collaborations, and new opportunities.</p>
+      <div class="contact-details">
+        <a href="mailto:rabia.ashfaq77@gmail.com">rabia.ashfaq77@gmail.com ↗</a>
+        <a href="gallery.html">Explore my gallery ↗</a>
+      </div>
+    </div>
+    <form class="contact-form reveal" action="mailto:rabia.ashfaq77@gmail.com" method="post" enctype="text/plain">
+      <label>Name<input type="text" name="Name" placeholder="Your name" required></label>
+      <label>Email<input type="email" name="Email" placeholder="you@example.com" required></label>
+      <label>Message<textarea name="Message" placeholder="Tell me a little about it..." required></textarea></label>
+      <button class="button" type="submit">Send Message ↗</button>
+      <p class="form-note">This opens your default email app with the message prepared. A hosted form service is needed to send messages directly from the website.</p>
+    </form>
+  </div>
+</main>
+<footer class="container">Rabia Ashfaq · Portfolio · <a href="mailto:rabia.ashfaq77@gmail.com">rabia.ashfaq77@gmail.com</a></footer>
+
+<script>
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .gallery-card').forEach(el => revealObserver.observe(el));
+
+const copy = document.querySelector('#scroll-copy');
+const words = document.querySelectorAll('.reveal-word');
+function updateTextReveal() {
+  if (!copy || !words.length) return;
+  const rect = copy.getBoundingClientRect();
+  const start = innerHeight * .78;
+  const end = innerHeight * .35;
+  const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
+  words.forEach((word, index) => {
+    const amount = progress * words.length - index;
+    word.classList.toggle('active', amount >= .7);
+  });
+}
+addEventListener('scroll', updateTextReveal, { passive: true });
+addEventListener('resize', updateTextReveal);
+updateTextReveal();
+</script>
+</body></html>
